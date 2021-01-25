@@ -58,11 +58,11 @@ function GivensQR(a::Matrix)
     u = 0
     t = 0
     p = 0
-    if m == 2 
-        g[i,j] = -b[i,j]/sqrt((b[i,j]^2)+(b[i-1,j]^2))
-        g[i-1,j] = b[i-1,j]/sqrt((b[i-1,j]^2)+(b[i,j]^2))
-        g[i-1,j+1] = b[i,j]/sqrt((b[i,j]^2)+(b[i-1,j]^2))
-        g[i,j+1] = b[i-1,j]/sqrt((b[i-1,j]^2)+(b[i,j]^2))
+    if m == 2
+        g[2,1] = -b[2,1]/sqrt((b[2,1]^2)+(b[1,1]^2))
+        g[1,1] = b[1,1]/sqrt((b[2,1]^2)+(b[1,1]^2))
+        g[1,2] = b[2,1]/sqrt((b[2,1]^2)+(b[1,1]^2))
+        g[2,2] = b[1,1]/sqrt((b[2,1]^2)+(b[1,1]^2))
         b = g*b
     else
         while o < ((m*m)-m) 
