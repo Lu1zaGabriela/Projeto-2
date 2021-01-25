@@ -11,7 +11,7 @@ function HouseholderQR(A)
     end
     while k < n
         u = [] ##vai resetar u quando terminar o loop
-    ##cria o vetor u igual ao vetor v, onde v é a coluna de A
+        ##cria o vetor u igual ao vetor v, onde v é a coluna de A
         for i in 1:m
             for j in k:k
                 u = [u; A[i,j]]
@@ -33,8 +33,8 @@ function HouseholderQR(A)
         b = 2/ (u'*u)  ##vai simplificar pra fazer a matriz Q
         k += 1
         Q = I - b*u*u' ##Define a matriz Q
-        R = Q'*A*Q' ##Define a matriz R 
-        println("\nA matriz Q$(k-1) = $Q'") ##Vai printar a matriz Q achada
+        R = Q'*A ##Define a matriz R 
+        println("\nMatriz Q$(k-1) = $Q'") ##Vai printar a matriz Q achada
         if Q'*R*Q == A  ##Caso QR = A, quebra o loop e vai para os prints.
             break
         end
