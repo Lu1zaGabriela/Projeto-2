@@ -16,8 +16,8 @@ function HouseholderQR(A)
             for j in k:k
                 u = [u; A[i,j]]
             end
-        end
-        for i in 1:m
+        end    
+        for i in 1:m            
             if i < k
                 u[i] = 0   ##todos os elementos de u acima do elemento k serão iguais a zero             
             end
@@ -26,25 +26,26 @@ function HouseholderQR(A)
             auxiliar += A[l,k]^2 ##auxiliar que calcula os elementos dentro da raíz da norma
         end
         s = sqrt(auxiliar) ##norma
-        if s*A[k,k] <= 0 ##caso o produto de s e o elemento k sejam maiores que zero, ele muda o sinal de s
+        if s*A[k,k] < 0 ##caso o produto de s e o elemento k sejam maiores que zero, ele muda o sinal de s
             s = -s
+        end        
+        if norm(u) != u[1]
+            u[k] = A[k,k] - s    ## o elemento k do vetor u é igual o elemento k,k da matriz A      
+        elseif norm(u)== u[k,k]
+            u[k] = A[k,k]/k
         end
-        u[k] = A[k,k] - s    ## o elemento k do vetor u é igual o elemento k,k da matriz A
-        b = 2/ (u'*u)  ##vai simplificar pra fazer a matriz Q
+        b = 2/(u'*u)  ##vai simplificar pra fazer a matriz Q
         k += 1
-        Q = I - b*u*u' ##Define a matriz Q
-        R = Q'*A ##Define a matriz R 
-        println("\nMatriz Q$(k-1) = $Q'") ##Vai printar a matriz Q achada
-        if Q'*R*Q == A  ##Caso QR = A, quebra o loop e vai para os prints.
+        Q = Matrix(I,m,m) - b*u*u' ##Define a matriz Q
+        R = Q'*A ##Define a matriz R        
+        if Q*R == A  ##Caso QR = A, quebra o loop.
             break
         end
     end
-    Q = I - b*u*u'
+    Q = Matrix(I,m,m) - b*u*u' 
     R = (Q'*A)
-    #println("\nA matriz A = $A")
-    println("\nMatriz R = $R")
-    println("\nMatriz QR = $(Q'*R)")
-    println("\nMatriz Q = $Q")
+    println("\nA matriz R = $R")
+    println("\nA matriz Q = $Q")
 end
 
 function GivensQR(a::Matrix)
